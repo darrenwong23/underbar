@@ -213,7 +213,8 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-_.extend = function(obj) {
+  _.extend = function(obj) {
+  
     var objects = Array.prototype.slice.call(arguments).slice(1);
 
     for(var i = 0; i< objects.length; i++) {
@@ -222,7 +223,7 @@ _.extend = function(obj) {
       }
     }
     return obj;
-};
+  };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
@@ -302,7 +303,7 @@ _.extend = function(obj) {
   _.delay = function(func, wait) {
     var args = Array.prototype.slice.call(arguments).slice(2);
 
-  setInterval(function () {
+  setTimeout(function () {
     func.apply(null,args);
   }, wait );
 
@@ -438,26 +439,20 @@ _.extend = function(obj) {
       var isTimeOut = false;
       var isSecond = false;
       var result;
-      var counter = 0;
 
     return function throt() {
       //check whether isTimeOut
       if(!isTimeOut) {
-        console.log(++counter);
         func();
-        console.log(result);
 
         isTimeOut = true;
-        setInterval(function(){
+        setTimeout(function(){
           isTimeOut = false;
           if(isSecond) {
-            //console.log("call second");
             isSecond = false;
             throt();
           }
-          
-
-        }, wait+1);
+        }, wait);
       } else if(!isSecond){
         isSecond = true;
       }
